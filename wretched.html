@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood Knight Field Order — Sanctification of the Wretched</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parch-deep:   #120b04;
+    --parch-mid:    #1c1008;
+    --parch-warm:   #221408;
+    --gold:         #c9a84c;
+    --gold-lit:     #e8c96a;
+    --gold-dim:     #8a6228;
+    --gold-pale:    #f0dfa0;
+    --amber:        #d4820a;
+    --amber-lit:    #f0a020;
+    --amber-dim:    #7a4a06;
+    --sunwell:      #e8d060;
+    --sunwell-glow: #fff0a0;
+    --ink:          #f0e8d0;
+    --ink-dim:      #c0a870;
+    --ink-pale:     #e0d0a8;
+    --red-mark:     #a01818;
+    --red-lit:      #c82020;
+    --sage:         #607850;
+    --sage-lit:     #80a060;
+  }
+
+  body {
+    background: #0c0804;
+    background-image:
+      radial-gradient(ellipse 90% 55% at 50% 0%, rgba(60,35,5,0.5) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 40% at 50% 100%, rgba(40,20,0,0.3) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 3px);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3rem 1rem 5rem;
+    font-family: 'EB Garamond', serif;
+    color: var(--ink);
+  }
+
+  .wrapper {
+    width: 100%;
+    max-width: 840px;
+    position: relative;
+  }
+
+  .wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -80px;
+    background: radial-gradient(ellipse at 50% 20%, rgba(200,160,40,0.07) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .document {
+    position: relative;
+    z-index: 1;
+    background:
+      linear-gradient(165deg, #1e1206 0%, #160e05 30%, #1a1106 60%, #120a03 100%);
+    border: 1px solid var(--gold-dim);
+    box-shadow:
+      0 0 0 3px rgba(30,18,6,0.8),
+      0 0 0 5px rgba(201,168,76,0.18),
+      0 0 50px rgba(180,120,20,0.2),
+      0 0 100px rgba(120,80,10,0.15),
+      inset 0 0 100px rgba(0,0,0,0.4);
+    padding: 3.5rem 4rem;
+    animation: unfurl 1.6s ease forwards;
+    opacity: 0;
+    transform-origin: top center;
+  }
+
+  @keyframes unfurl {
+    from { opacity: 0; transform: scaleY(0.97) translateY(8px); }
+    to   { opacity: 1; transform: scaleY(1)    translateY(0); }
+  }
+
+  /* Parchment grain overlay */
+  .document::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+    mix-blend-mode: overlay;
+  }
+
+  /* Corner ornaments — sunwell-style flourishes */
+  .corner {
+    position: absolute;
+    width: 64px; height: 64px;
+    border-color: var(--gold-dim);
+    border-style: solid;
+    opacity: 0.6;
+  }
+  .corner-tl { top: 14px; left: 14px;  border-width: 2px 0 0 2px; }
+  .corner-tr { top: 14px; right: 14px; border-width: 2px 2px 0 0; }
+  .corner-bl { bottom: 14px; left: 14px;  border-width: 0 0 2px 2px; }
+  .corner-br { bottom: 14px; right: 14px; border-width: 0 2px 2px 0; }
+
+  /* Diamond pip at each corner */
+  .corner::after {
+    content: '';
+    position: absolute;
+    width: 7px; height: 7px;
+    background: var(--sunwell);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px rgba(232,208,96,0.9), 0 0 16px rgba(200,168,40,0.5);
+  }
+  .corner-tl::after { top: -3.5px; left: -3.5px; }
+  .corner-tr::after { top: -3.5px; right: -3.5px; }
+  .corner-bl::after { bottom: -3.5px; left: -3.5px; }
+  .corner-br::after { bottom: -3.5px; right: -3.5px; }
+
+  /* OPEN banner ribbon */
+  .open-ribbon {
+    position: absolute;
+    top: 22px;
+    right: -1px;
+    background: var(--amber);
+    color: var(--parch-deep);
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    padding: 0.28rem 1rem 0.28rem 0.7rem;
+    clip-path: polygon(8px 0%, 100% 0%, 100% 100%, 8px 100%, 0% 50%);
+    text-transform: uppercase;
+    box-shadow: -2px 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .inner-border {
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 2.2rem 2.6rem;
+    position: relative;
+  }
+
+  /* ── HEADER ── */
+  .seal-area {
+    text-align: center;
+    margin-bottom: 1.8rem;
+  }
+
+  .seal-emblem {
+    display: inline-block;
+    width: 100px; height: 100px;
+    margin-bottom: 0.6rem;
+    position: relative;
+  }
+
+  .seal-emblem svg {
+    width: 100%; height: 100%;
+    filter:
+      drop-shadow(0 0 10px rgba(232,208,96,0.7))
+      drop-shadow(0 0 24px rgba(200,160,30,0.4));
+    animation: sunwellPulse 5s ease-in-out infinite;
+  }
+
+  @keyframes sunwellPulse {
+    0%,100% {
+      filter: drop-shadow(0 0 8px rgba(232,208,96,0.6)) drop-shadow(0 0 20px rgba(200,160,30,0.3));
+    }
+    50% {
+      filter: drop-shadow(0 0 18px rgba(255,230,120,1)) drop-shadow(0 0 40px rgba(220,180,40,0.6));
+    }
+  }
+
+  .org-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.32em;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 0.15rem;
+  }
+
+  /* ── DIVIDERS ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 1rem 0;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+  .gem {
+    width: 7px; height: 7px;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  .gem-sun    { background: var(--sunwell); box-shadow: 0 0 7px rgba(232,208,96,1); }
+  .gem-amber  { background: var(--amber);   box-shadow: 0 0 7px rgba(212,130,10,0.9); }
+  .gem-red    { background: var(--red-lit); box-shadow: 0 0 7px rgba(200,32,32,0.8); }
+
+  .order-classification {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    color: var(--amber-lit);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .order-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--gold-pale);
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 0 0 32px rgba(232,208,96,0.4), 0 2px 6px rgba(0,0,0,0.9);
+    margin-bottom: 0.3rem;
+  }
+  .order-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-dim);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* ── META ── */
+  .meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    margin: 1.2rem 0;
+  }
+  .meta-block {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.18);
+    padding: 0.5rem 0.7rem;
+  }
+  .meta-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+  .meta-value {
+    font-size: 0.82rem;
+    color: var(--ink-pale);
+    font-style: italic;
+  }
+  .meta-open {
+    color: var(--amber-lit);
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  /* ── BODY ── */
+  .section-heading {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.55rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold-dim), transparent);
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.78;
+    color: var(--ink-pale);
+    margin-bottom: 0.85rem;
+    text-align: justify;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  em { color: var(--ink); font-style: italic; }
+  strong { color: var(--gold-lit); font-weight: 600; }
+  .danger  { color: var(--red-lit);    font-weight: 600; }
+  .caution { color: var(--amber-lit);  font-weight: 600; }
+  .light   { color: var(--sunwell);    font-weight: 600; }
+  .nature  { color: var(--sage-lit);   font-weight: 600; }
+
+  /* ── OPEN POSTING NOTICE ── */
+  .open-notice {
+    background: rgba(212,130,10,0.08);
+    border: 1px solid rgba(212,130,10,0.3);
+    border-left: 3px solid var(--amber);
+    padding: 0.9rem 1.1rem;
+    margin: 0.8rem 0 1.2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .open-notice-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(232,208,96,0.8));
+  }
+  .open-notice-text {
+    font-size: 0.92rem;
+    color: var(--ink-pale);
+    line-height: 1.65;
+  }
+  .open-notice-text strong { color: var(--amber-lit); }
+
+  /* ── INTEL BOX ── */
+  .intel-box {
+    background: rgba(18,12,4,0.6);
+    border: 1px solid rgba(138,98,40,0.3);
+    border-left: 3px solid var(--gold-dim);
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+    position: relative;
+  }
+  .intel-box::before {
+    content: '◈ FIELD INTELLIGENCE — ADEPT BRIEFING';
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.25em;
+    color: var(--gold-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── DOCTRINE BLOCK ── */
+  .doctrine-block {
+    background: rgba(232,208,96,0.04);
+    border: 1px solid rgba(232,208,96,0.2);
+    border-top: 2px solid var(--sunwell);
+    padding: 1.1rem 1.2rem 1rem;
+    margin: 1rem 0;
+    position: relative;
+  }
+  .doctrine-block::before {
+    content: '☀ BLOOD KNIGHT DOCTRINE';
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.28em;
+    color: var(--sunwell);
+    margin-bottom: 0.6rem;
+  }
+  .doctrine-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--ink-pale);
+    font-style: italic;
+    padding-left: 0.8rem;
+    border-left: 2px solid rgba(232,208,96,0.25);
+  }
+  .doctrine-text strong { color: var(--gold-pale); }
+
+  /* ── OBJECTIVE CARDS ── */
+  .objective-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin: 0.8rem 0;
+  }
+  .obj-card {
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 0.9rem 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .obj-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .obj-primary::before   { background: var(--red-lit);  box-shadow: 0 0 8px rgba(200,32,32,0.6); }
+  .obj-secondary::before { background: var(--sunwell);  box-shadow: 0 0 8px rgba(232,208,96,0.5); }
+  .obj-primary   { background: rgba(160,24,24,0.07); }
+  .obj-secondary { background: rgba(232,208,96,0.04); }
+  .obj-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .obj-primary   .obj-label { color: var(--red-lit); }
+  .obj-secondary .obj-label { color: var(--sunwell); }
+  .obj-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--gold-lit);
+    margin-bottom: 0.35rem;
+  }
+  .obj-body {
+    font-size: 0.88rem;
+    color: var(--ink-pale);
+    line-height: 1.6;
+  }
+
+  /* ── TARGET PROFILE ── */
+  .target-box {
+    background: rgba(160,24,24,0.07);
+    border: 1px solid rgba(160,24,24,0.25);
+    padding: 1.1rem 1.2rem;
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .target-sigil {
+    width: 60px; height: 60px;
+    border: 1px solid rgba(160,24,24,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(160,24,24,0.1);
+  }
+  .target-sigil svg {
+    width: 40px; height: 40px;
+    fill: var(--red-lit);
+    filter: drop-shadow(0 0 4px rgba(200,32,32,0.5));
+  }
+  .target-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold-lit);
+    margin-bottom: 0.15rem;
+  }
+  .target-class {
+    font-size: 0.78rem;
+    color: var(--red-lit);
+    font-style: italic;
+    letter-spacing: 0.07em;
+    margin-bottom: 0.4rem;
+  }
+  .target-details {
+    font-size: 0.88rem;
+    color: var(--ink-pale);
+    line-height: 1.65;
+  }
+  .tag {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.48rem;
+    letter-spacing: 0.15em;
+    padding: 0.1rem 0.38rem;
+    border: 1px solid currentColor;
+    margin-left: 0.35rem;
+    vertical-align: middle;
+    position: relative; top: -1px;
+  }
+  .tag-red    { color: var(--red-lit);    border-color: rgba(200,32,32,0.45);   background: rgba(200,32,32,0.07); }
+  .tag-gold   { color: var(--gold);       border-color: rgba(201,168,76,0.4);   background: rgba(201,168,76,0.05); }
+  .tag-amber  { color: var(--amber-lit);  border-color: rgba(212,130,10,0.4);   background: rgba(212,130,10,0.06); }
+  .tag-sage   { color: var(--sage-lit);   border-color: rgba(128,160,96,0.4);   background: rgba(96,120,80,0.07); }
+
+  /* ── CLAUSES ── */
+  .clauses {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0.4rem 0;
+  }
+  .clause {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 0 0.8rem;
+    align-items: start;
+    background: rgba(0,0,0,0.2);
+    border-left: 2px solid var(--amber-dim);
+    padding: 0.75rem 0.9rem 0.75rem 0;
+    transition: border-color 0.2s;
+  }
+  .clause:hover { border-left-color: var(--amber); }
+  .clause-mercy  { border-left-color: var(--red-mark); }
+  .clause-mercy:hover { border-left-color: var(--red-lit); }
+  .clause-delivery { border-left-color: var(--gold-dim); }
+  .clause-delivery:hover { border-left-color: var(--gold); }
+  .clause-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--amber);
+    padding-left: 0.9rem;
+    padding-top: 0.05rem;
+  }
+  .clause-mercy    .clause-num { color: var(--red-lit); }
+  .clause-delivery .clause-num { color: var(--gold); }
+  .clause-text {
+    font-size: 0.94rem;
+    line-height: 1.7;
+    color: var(--ink-pale);
+  }
+  .clause-text strong { color: var(--gold-lit); }
+
+  /* ── ESSENCE TRACKER ── */
+  .essence-tracker {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0.8rem 0;
+    flex-wrap: wrap;
+  }
+  .essence-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-right: 0.3rem;
+  }
+  .essence-casket {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(232,208,96,0.4);
+    background: rgba(232,208,96,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .essence-casket svg {
+    width: 20px; height: 20px;
+    fill: var(--sunwell);
+    filter: drop-shadow(0 0 4px rgba(232,208,96,0.7));
+  }
+  .essence-casket-label {
+    position: absolute;
+    bottom: -1.2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.45rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .essence-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+  }
+
+  /* ── DELIVERY PROFILE ── */
+  .delivery-box {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8rem;
+    align-items: start;
+  }
+  .delivery-sigil {
+    width: 50px; height: 50px;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(201,168,76,0.06);
+  }
+  .delivery-sigil svg {
+    width: 30px; height: 30px;
+    fill: var(--gold);
+    filter: drop-shadow(0 0 4px rgba(201,168,76,0.5));
+  }
+  .delivery-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--gold-lit);
+    margin-bottom: 0.12rem;
+  }
+  .delivery-rank {
+    font-size: 0.75rem;
+    color: var(--gold-dim);
+    font-style: italic;
+    margin-bottom: 0.35rem;
+  }
+  .delivery-details {
+    font-size: 0.88rem;
+    color: var(--ink-pale);
+    line-height: 1.65;
+  }
+
+  /* ── REWARD BLOCK ── */
+  .reward-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin: 0.6rem 0;
+  }
+  .reward-block {
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 0.65rem 0.85rem;
+  }
+  .reward-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .reward-value {
+    font-size: 0.88rem;
+    color: var(--ink-pale);
+    line-height: 1.55;
+  }
+
+  /* ── SIGNATURES ── */
+  .sig-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .sig-block {
+    border-top: 1px solid rgba(201,168,76,0.25);
+    padding-top: 0.6rem;
+  }
+  .sig-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.1rem;
+  }
+  .sig-title {
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    font-style: italic;
+  }
+
+  .seal-stamp {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(201,168,76,0.12);
+  }
+  .seal-text {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.38em;
+    color: var(--amber-dim);
+    opacity: 0.65;
+  }
+  .order-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    color: var(--gold-dim);
+    text-align: right;
+    margin-top: 0.55rem;
+    opacity: 0.6;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0c0804; }
+  ::-webkit-scrollbar-thumb { background: var(--amber-dim); border-radius: 3px; }
+
+  @media (max-width: 620px) {
+    .document { padding: 2.2rem 1.6rem; }
+    .inner-border { padding: 1.4rem 1rem; }
+    .meta-row { grid-template-columns: 1fr 1fr; }
+    .objective-row { grid-template-columns: 1fr; }
+    .reward-row { grid-template-columns: 1fr; }
+    .sig-row { grid-template-columns: 1fr; }
+    .order-title { font-size: 1.15rem; }
+    .target-box { grid-template-columns: 1fr; }
+    .delivery-box { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div class="document">
+
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+  <div class="open-ribbon">Open Posting — All Ranks</div>
+
+  <div class="inner-border">
+
+    <!-- Seal -->
+    <div class="seal-area">
+      <div class="seal-emblem">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="sunG" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#e8d060"/>
+              <stop offset="45%"  stop-color="#c9a840"/>
+              <stop offset="100%" stop-color="#7a5a10"/>
+            </radialGradient>
+            <radialGradient id="coreG" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#fff0a0"/>
+              <stop offset="100%" stop-color="#e8c040"/>
+            </radialGradient>
+          </defs>
+          <!-- Outer glow ring -->
+          <circle cx="50" cy="50" r="47" fill="none" stroke="#c9a840" stroke-width="1" opacity="0.5"/>
+          <!-- Sun rays -->
+          <g stroke="#c9a840" stroke-width="1.2" opacity="0.55">
+            <line x1="50" y1="4"  x2="50" y2="14"/>
+            <line x1="50" y1="86" x2="50" y2="96"/>
+            <line x1="4"  y1="50" x2="14" y2="50"/>
+            <line x1="86" y1="50" x2="96" y2="50"/>
+            <line x1="16" y1="16" x2="23" y2="23"/>
+            <line x1="77" y1="77" x2="84" y2="84"/>
+            <line x1="84" y1="16" x2="77" y2="23"/>
+            <line x1="23" y1="77" x2="16" y2="84"/>
+          </g>
+          <!-- Shield -->
+          <path d="M50 14 L76 26 L76 54 Q76 74 50 86 Q24 74 24 54 L24 26 Z"
+                fill="url(#sunG)" stroke="#e8c040" stroke-width="1.5" opacity="0.9"/>
+          <!-- Shield inner divide lines -->
+          <line x1="50" y1="14" x2="50" y2="86" stroke="#e8d060" stroke-width="0.6" opacity="0.3"/>
+          <line x1="24" y1="42" x2="76" y2="42" stroke="#e8d060" stroke-width="0.6" opacity="0.3"/>
+          <!-- Central sun core -->
+          <circle cx="50" cy="46" r="12" fill="url(#coreG)" opacity="0.9"/>
+          <circle cx="50" cy="46" r="7"  fill="#fff8c0" opacity="0.8"/>
+          <!-- Crossed swords below sun -->
+          <line x1="38" y1="68" x2="62" y2="62" stroke="#c9a840" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="62" y1="68" x2="38" y2="62" stroke="#c9a840" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="org-title">Order of the Blood Knights — Field Operations, Quel'Thalas</div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-gem gem-sun"></div><div class="divider-line"></div></div>
+
+    <div class="order-classification">Field Mandate · Adept Grade · Open Posting</div>
+    <div class="order-title">Sanctification of the Wretched</div>
+    <div class="order-subtitle">"Reclaim what was lost. Return what was stolen. Consecrate what remains."</div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-gem gem-amber"></div><div class="divider-line"></div></div>
+
+    <!-- Meta -->
+    <div class="meta-row">
+      <div class="meta-block">
+        <div class="meta-label">Order Reference</div>
+        <div class="meta-value">BK-FLD-31 · Eastern Quel'Thalas</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Authorised By</div>
+        <div class="meta-value">Knight-Lord Bloodvalor</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Posting Status</div>
+        <div class="meta-value meta-open">OPEN — ALL RANKS</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Recommended Grade</div>
+        <div class="meta-value">Adept · Level 15–22</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Theatre</div>
+        <div class="meta-value">Shadowpine Ruins · Lake Elrendar</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Auxiliaries Eligible</div>
+        <div class="meta-value meta-open">Yes — See Clause V</div>
+      </div>
+    </div>
+
+    <!-- Open posting notice -->
+    <div class="open-notice">
+      <div class="open-notice-icon">☀</div>
+      <div class="open-notice-text">
+        This mandate carries <strong>no rank restriction.</strong> It is posted to the open board and may be accepted by any Knight, Adept, or registered Auxiliary in good standing with the Order. Auxiliaries completing this contract in full will have their contribution formally noted in the Field Record — a distinction that carries weight at rank review. <em>The Light does not ask for credentials before it shines.</em>
+      </div>
+    </div>
+
+    <!-- Preamble -->
+    <div class="section-heading">Preamble</div>
+
+    <p>
+      Let this order be known to all members of the Blood Knight Order, ranked and auxiliary alike, who draw from the boards at Silvermoon City and the waystation postings across Quel'Thalas: <strong>the Wretched have struck against our reconstruction efforts.</strong> A supply caravan transporting <em>Ley Restoration Cores</em> — arcane focusing instruments commissioned for use in the ongoing ley-line stabilisation work along the corridor where the Dead Scar once ran — was waylaid on the road northeast of the Goldenmist reconstruction site. The caravan's escort was overwhelmed. The cores were taken. The Wretched who took them have retreated into the <strong>Shadowpine Ruins</strong> above the Lake Elrendar periphery, where they are almost certainly attempting to drain what they cannot comprehend.
+    </p>
+    <p>
+      The healing of the Dead Scar was not an ending — it was the beginning of the harder work of rebuilding a land that spent decades dying. Those cores are part of that work. <em>They represent what Quel'Thalas is becoming.</em> Every moment they remain in Wretched hands is a moment that work stalls. The recovery window is narrow. This mandate is posted open because the Order needs it answered <em>now</em>, not after a ranked cohort is assembled and briefed.
+    </p>
+
+    <!-- Intel -->
+    <div class="intel-box">
+      <p style="margin-bottom:0.5rem;">
+        Wretched packs operating out of the Shadowpine Ruins have been a known nuisance along this corridor for some time, but their recent aggression suggests organisation beyond opportunistic scavenging. The presence of <strong>Siphoner-class Wretched</strong> — those who have progressed far enough in their degradation to actively channel and redirect stolen arcane energy — indicates the pack has a functional leadership structure. Where a Siphoner leads, the rank-and-file follow with unusual coordination.
+      </p>
+      <p style="margin-bottom:0;">
+        The Ley Restoration Cores will be highly attractive to Siphoners — concentrated ley-attuned arcane energy is precisely what they are built to consume. They will have already begun drawing on the cores' outer resonance fields. Operatives are advised that Siphoners in proximity to active ley instruments will be <span class="caution">more volatile than usual</span> and may exhibit accelerated drain capability. Eliminate the Siphoners before attempting to locate the cores. Do not attempt to recover a core while a Siphoner is still standing. They will feel you touch it.
+      </p>
+    </div>
+
+    <!-- Objectives -->
+    <div class="section-heading">Mission Objectives</div>
+
+    <div class="objective-row">
+      <div class="obj-card obj-primary">
+        <div class="obj-label">Primary Objective</div>
+        <div class="obj-title">The Siphoner Cull</div>
+        <div class="obj-body">
+          Locate and eliminate the Wretched Siphoners leading the Shadowpine pack. Intelligence suggests <strong>three to five Siphoners</strong> are present, likely clustered near the deepest point of the ruins where arcane residue is heaviest. They are not to be driven off. They are not to be allowed to retreat further into the ruins with the essence. <span class="danger">They are to be ended.</span>
+        </div>
+      </div>
+      <div class="obj-card obj-secondary">
+        <div class="obj-label">Secondary Objective</div>
+        <div class="obj-title">Recovery of the Ley Restoration Cores</div>
+        <div class="obj-body">
+          Recover all <strong>six Ley Restoration Cores</strong> taken from the waylaid caravan. The cores are self-sealed and will not have fully degraded if recovered before the Siphoners drain them to inert stone — but that window is closing. A partial recovery of four or more cores is acceptable, but <span class="caution">full recovery is the expectation.</span> Count carefully before leaving the ruins.
+        </div>
+      </div>
+    </div>
+
+    <!-- Essence tracker -->
+    <div style="margin: 1.2rem 0 0.4rem;">
+      <div class="essence-label">Ley Restoration Cores to Recover</div>
+    </div>
+    <div class="essence-row">
+      <!-- 6 casket icons -->
+      <div class="essence-casket">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 8 Q3 4 12 4 Q21 4 21 8"/><line x1="12" y1="4" x2="12" y2="8" stroke-width="1.5" stroke="rgba(0,0,0,0.4)"/><circle cx="12" cy="14" r="2.5" fill="rgba(0,0,0,0.25)"/></svg>
+        <div class="essence-casket-label">I</div>
+      </div>
+      <div class="essence-casket">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 8 Q3 4 12 4 Q21 4 21 8"/><line x1="12" y1="4" x2="12" y2="8" stroke-width="1.5" stroke="rgba(0,0,0,0.4)"/><circle cx="12" cy="14" r="2.5" fill="rgba(0,0,0,0.25)"/></svg>
+        <div class="essence-casket-label">II</div>
+      </div>
+      <div class="essence-casket">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 8 Q3 4 12 4 Q21 4 21 8"/><line x1="12" y1="4" x2="12" y2="8" stroke-width="1.5" stroke="rgba(0,0,0,0.4)"/><circle cx="12" cy="14" r="2.5" fill="rgba(0,0,0,0.25)"/></svg>
+        <div class="essence-casket-label">III</div>
+      </div>
+      <div class="essence-casket">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 8 Q3 4 12 4 Q21 4 21 8"/><line x1="12" y1="4" x2="12" y2="8" stroke-width="1.5" stroke="rgba(0,0,0,0.4)"/><circle cx="12" cy="14" r="2.5" fill="rgba(0,0,0,0.25)"/></svg>
+        <div class="essence-casket-label">IV</div>
+      </div>
+      <div class="essence-casket">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 8 Q3 4 12 4 Q21 4 21 8"/><line x1="12" y1="4" x2="12" y2="8" stroke-width="1.5" stroke="rgba(0,0,0,0.4)"/><circle cx="12" cy="14" r="2.5" fill="rgba(0,0,0,0.25)"/></svg>
+        <div class="essence-casket-label">V</div>
+      </div>
+      <div class="essence-casket">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 8 Q3 4 12 4 Q21 4 21 8"/><line x1="12" y1="4" x2="12" y2="8" stroke-width="1.5" stroke="rgba(0,0,0,0.4)"/><circle cx="12" cy="14" r="2.5" fill="rgba(0,0,0,0.25)"/></svg>
+        <div class="essence-casket-label">VI</div>
+      </div>
+    </div>
+
+    <!-- Target profiles -->
+    <div class="section-heading">Known Target — Siphoner Classification</div>
+
+    <div class="target-box">
+      <div class="target-sigil">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- Hunched wretched figure with arcane tendrils -->
+          <circle cx="30" cy="16" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M18 50 Q18 30 30 28 Q42 30 42 50" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <!-- outstretched claw hand -->
+          <path d="M18 36 Q10 32 8 26" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M8 26 Q7 22 9 21" fill="none" stroke="currentColor" stroke-width="1"/>
+          <path d="M8 26 Q6 23 8 21" fill="none" stroke="currentColor" stroke-width="1"/>
+          <!-- arcane sparks -->
+          <circle cx="8" cy="26" r="3" fill="currentColor" opacity="0.25"/>
+          <line x1="5" y1="22" x2="3" y2="19" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+          <line x1="10" y1="21" x2="11" y2="18" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+          <line x1="4" y1="25" x2="1" y2="25" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="target-name">Wretched Siphoners <span class="tag tag-red">Kill on Sight</span><span class="tag tag-amber">3–5 Confirmed</span></div>
+        <div class="target-class">Shadowpine Pack · Arcane-Drain Capable · Former Sin'dorei</div>
+        <div class="target-details">
+          The Siphoners are what remains of Sin'dorei who pursued magic addiction past the point of recovery — stripped of reason, identity, and restraint, retaining only an animal instinct for arcane consumption. <em>They are not salvageable.</em> Whatever they once were is not present in what they have become, and the Order does not permit sentiment to complicate that assessment.
+          <br><br>
+          In combat, Siphoners present a specific hazard: their passive drain field will <span class="caution">interrupt sustained channelling</span> and may briefly suppress Holy Light output on contact. Operatives are advised to open with <strong>Hand of Reckoning</strong> to draw them onto consecrated ground before committing to heavier ability expenditure. Let the Light do the work once the field is set. Do not stand at range and trade with them — they are built to punish patience, not aggression.
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctrine -->
+    <div class="section-heading">Blood Knight Combat Doctrine</div>
+
+    <div class="doctrine-block">
+      <div class="doctrine-text">
+        <strong>"A Ranger picks at the edges of a problem. A Blood Knight walks into its centre and hallows the ground beneath her feet."</strong> The Wretched are not prey to be stalked — they are corruption to be confronted. An operative who fights from the shadows against the Wretched teaches them nothing and earns nothing. Draw them forward with <strong>Hand of Reckoning.</strong> Let them come to you. Consecrate the ground before the final blow is dealt so that what falls, falls on sanctified earth. That is not cruelty. That is the correct application of what the Order has built.
+      </div>
+    </div>
+
+    <!-- Clauses -->
+    <div class="section-heading">Standing Clauses</div>
+
+    <div class="clauses">
+
+      <div class="clause clause-mercy">
+        <div class="clause-num">I.</div>
+        <div class="clause-text">
+          <strong>The Mercy Clause:</strong> There is no provision for mercy in this engagement. The Wretched are not prisoners of circumstance awaiting redemption — they are the consequence of will abandoned, and that abandonment is <span class="danger">permanent and irreversible</span> at Siphoner stage. An operative who hesitates before a Wretched because they see a Sin'dorei face underneath the degradation is making an emotional error, not a moral one. The Wretched themselves do not hesitate. The Order does not ask its operatives to either. Their termination is a service rendered to the memory of what they once were, and nothing more complicated than that.
+        </div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">II.</div>
+        <div class="clause-text">
+          <strong>The Engagement Clause — Ground and Light:</strong> Operatives are expected to engage in the manner befitting the Order's doctrine. <strong>Consecrate early. Move forward.</strong> The ruins will offer tight corridors and collapsed chambers — use them. Siphoners that are drawn out of their cluster and onto consecrated ground individually are significantly less dangerous than a coordinated pack. Operatives who rely exclusively on ranged harassment will find their Light output degraded over time by proximity to multiple Siphoners. Close the distance and hold it.
+        </div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">III.</div>
+        <div class="clause-text">
+          <strong>The Core Clause — Handling Protocol:</strong> The Ley Restoration Cores are to be <strong>handled carefully and not tampered with</strong> in the field. Each core is an attuned ley-focusing instrument calibrated for specific reconstruction work along the formerly scarred land corridor — they are not weapons, not power sources for personal use, and not curiosities. An operative who feels the core's resonance pulling at their own arcane sensitivity should set it down, step back, and <span class="caution">wait for the sensation to pass before picking it up again.</span> The cores respond to need. They were not built for the needs of a single operative in a ruin. Deliver them intact and let the restoration teams do the rest.
+        </div>
+      </div>
+
+      <div class="clause clause-delivery">
+        <div class="clause-num">IV.</div>
+        <div class="clause-text">
+          <strong>The Delivery Clause — Credit and Protocol:</strong> Upon securing the recovered cores, the operative is to proceed directly to <strong>Adept Althelor</strong> at the Farstrider Retreat and complete the handoff through the designated Blood Knight liaison channel. The cores are <em>not</em> to be handed directly to Farstrider Rangers, regardless of their proximity, their rank, or how reasonable their offer of assistance seems in the moment. The Farstriders did not recover these cores. The Order did. That distinction matters institutionally, and Knight-Lord Bloodvalor has made it clear that <strong>the Order's credit for this recovery is not a courtesy — it is a requirement of this mandate's completion.</strong>
+        </div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">V.</div>
+        <div class="clause-text">
+          <strong>The Auxiliary Clause — Standing and Recognition:</strong> This mandate is open to Auxiliary operatives in full, without restriction on participation or reward eligibility. An Auxiliary who completes both the primary and secondary objectives — confirmed Siphoner eliminations and full six-core recovery — will have their contribution entered into the <em>Field Honour Record</em> under their name, countersigned by the presiding Adept at the Farstrider Retreat. <span class="light">The Order notes those who do the work when the work is inconvenient.</span> That note has a habit of appearing at the right moment.
+        </div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">VI.</div>
+        <div class="clause-text">
+          <strong>The Withdrawal Clause — Tactical Discretion:</strong> This mandate carries no requirement to fight to the last. If an operative enters the ruins and finds the pack significantly larger or more organised than intelligence indicated — Siphoner counts above six, signs of external arcane support, structural collapse rendering the deeper chambers inaccessible — they are authorised to <strong>withdraw, report their assessment to the nearest Order waystation, and flag the mandate for cohort escalation.</strong> A dead Adept recovers none of the essence and eliminates none of the Siphoners. There is no honour in a foolish death, only a vacancy on the board.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Delivery contact -->
+    <div class="section-heading">Delivery Contact</div>
+
+    <div class="delivery-box">
+      <div class="delivery-sigil">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- adept figure with staff -->
+          <circle cx="30" cy="14" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M20 48 Q20 30 30 28 Q40 30 40 48" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <!-- staff -->
+          <line x1="44" y1="8" x2="44" y2="48" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="44" cy="8" r="3" fill="currentColor" opacity="0.6"/>
+          <line x1="40" y1="36" x2="44" y2="34" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="delivery-name">Adept Althelor <span class="tag tag-gold">Receiving Officer</span></div>
+        <div class="delivery-rank">Blood Knight Liaison · Farstrider Retreat, Eastern Quel'Thalas</div>
+        <div class="delivery-details">
+          Althelor is stationed at the Farstrider Retreat for the duration of this mandate's active window, serving as the Order's on-site liaison. He will receive the recovered cores, conduct a count and integrity assessment, and issue the operative's field completion certificate on the spot. <em>Do not leave the retreat without that certificate</em> — it is the operative's proof of completion for reward and record purposes. Althelor will also log the Siphoner kill count — a brief verbal accounting of numbers is sufficient. He does not need a full account. He needs the cores on the table and the Siphoners confirmed dead.
+        </div>
+      </div>
+    </div>
+
+    <!-- Rewards -->
+    <div class="section-heading">Remuneration & Recognition</div>
+
+    <div class="reward-row">
+      <div class="reward-block">
+        <div class="reward-label">Primary Completion Reward</div>
+        <div class="reward-value">Standard Adept-grade field coin disbursement upon presentation of completion certificate to Silvermoon City Order offices.</div>
+      </div>
+      <div class="reward-block">
+        <div class="reward-label">Secondary Completion Bonus</div>
+        <div class="reward-value">Full six-core recovery earns an additional tithe supplement, disbursed directly by House Sunstrider's field quartermaster.</div>
+      </div>
+      <div class="reward-block">
+        <div class="reward-label">Auxiliary Field Honour Entry</div>
+        <div class="reward-value">Name entered into the Field Honour Record, countersigned by Adept Althelor. Eligible for review consideration at the next Auxiliary advancement assessment.</div>
+      </div>
+      <div class="reward-block">
+        <div class="reward-label">Knight-Lord's Commendation</div>
+        <div class="reward-value">Full recovery with zero core loss qualifies the operative for a written commendation from Knight-Lord Bloodvalor — rare for an open mandate. Noted in the permanent record.</div>
+      </div>
+    </div>
+
+    <div class="divider" style="margin-top:1.4rem;"><div class="divider-line"></div><div class="divider-gem gem-sun"></div><div class="divider-line"></div></div>
+
+    <p style="text-align:center; font-style:italic; color: var(--ink-dim); font-size: 0.92rem;">
+      <em>"The scar is gone. The land remembers it anyway — and so do they.<br>End what persists. Recover what belongs to the living. Come home."</em>
+    </p>
+    <p style="text-align:center; font-size: 0.78rem; color: var(--gold-dim); margin-top:0.3rem;">
+      — Knight-Lord Bloodvalor, Blood Knight Order, Quel'Thalas
+    </p>
+
+    <div class="divider" style="margin-top:1.4rem;"><div class="divider-line"></div><div class="divider-gem gem-amber"></div><div class="divider-line"></div></div>
+
+    <!-- Signatures -->
+    <div class="sig-row">
+      <div class="sig-block">
+        <div class="sig-name">Knight-Lord Bloodvalor</div>
+        <div class="sig-title">Knight-Lord, Blood Knight Order<br>Quel'Thalas High Command</div>
+      </div>
+      <div class="sig-block">
+        <div class="sig-name">Adept Althelor</div>
+        <div class="sig-title">Field Liaison, Farstrider Retreat<br><em>[Countersignature pending field completion]</em></div>
+      </div>
+    </div>
+
+    <div class="seal-stamp">
+      <div class="seal-text">BLOOD KNIGHT ORDER · FIELD OPERATIONS · OPEN MANDATE · BK-FLD-31 · QUEL'THALAS EASTERN SECTOR</div>
+      <div class="order-number">ORDER REF: BK-FLD-31 · SANCTIFICATION OF THE WRETCHED · ADEPT GRADE · OPEN POSTING</div>
+    </div>
+
+  </div>
+</div>
+</div>
+</body>
+</html>
