@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood Knight Auxiliary Contract — Quel'Thalas Recovery Directive</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --shadow-deep:  #050a0f;
+    --slate:        #0d1520;
+    --slate-mid:    #111c2a;
+    --gold:         #c9a84c;
+    --gold-lit:     #e8c96a;
+    --gold-dim:     #7a6228;
+    --silver:       #a8b8c8;
+    --silver-dim:   #6a7a8a;
+    --ink:          #dde8f0;
+    --ink-dim:      #9aaabb;
+    --ink-pale:     #c8d8e4;
+    --ember:        #c04820;
+    --ember-lit:    #e06030;
+    --teal-accent:  #2a6060;
+    --teal-lit:     #3a8080;
+    --warn:         #c8941a;
+  }
+
+  body {
+    background: #030810;
+    background-image:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(15,30,50,0.9) 0%, transparent 70%),
+      repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 4px);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3rem 1rem 5rem;
+    font-family: 'EB Garamond', serif;
+    color: var(--ink);
+  }
+
+  .wrapper {
+    width: 100%;
+    max-width: 840px;
+    position: relative;
+  }
+
+  .wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -60px;
+    background: radial-gradient(ellipse at 50% 25%, rgba(10,25,50,0.3) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .document {
+    position: relative;
+    z-index: 1;
+    background:
+      linear-gradient(155deg, #0d1a28 0%, #091018 35%, #0c1520 65%, #070e18 100%);
+    border: 1px solid var(--gold-dim);
+    box-shadow:
+      0 0 0 4px rgba(10,30,55,0.6),
+      0 0 0 6px rgba(201,168,76,0.1),
+      0 0 60px rgba(10,20,45,0.8),
+      0 0 120px rgba(5,10,25,0.6),
+      inset 0 0 80px rgba(0,0,0,0.5);
+    padding: 3.5rem 4rem;
+    animation: fadeIn 1.8s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Corner ornaments */
+  .corner {
+    position: absolute;
+    width: 56px; height: 56px;
+    border-color: var(--gold-dim);
+    border-style: solid;
+    opacity: 0.55;
+  }
+  .corner-tl { top: 12px; left: 12px;  border-width: 2px 0 0 2px; }
+  .corner-tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; }
+  .corner-bl { bottom: 12px; left: 12px;  border-width: 0 0 2px 2px; }
+  .corner-br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; }
+  .corner::after {
+    content: '';
+    position: absolute;
+    width: 5px; height: 5px;
+    background: var(--teal-lit);
+    border-radius: 50%;
+    opacity: 0.7;
+  }
+  .corner-tl::after { top: -2.5px; left: -2.5px; }
+  .corner-tr::after { top: -2.5px; right: -2.5px; }
+  .corner-bl::after { bottom: -2.5px; left: -2.5px; }
+  .corner-br::after { bottom: -2.5px; right: -2.5px; }
+
+  /* Redacted stamp overlay — decorative element suggesting classified nature */
+  .classified-band {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.48rem;
+    letter-spacing: 0.3em;
+    color: var(--ember);
+    border: 1px solid rgba(192,72,32,0.4);
+    padding: 0.25rem 0.6rem;
+    opacity: 0.75;
+    transform: rotate(2deg);
+    background: rgba(192,72,32,0.06);
+  }
+
+  .inner-border {
+    border: 1px solid rgba(201,168,76,0.12);
+    padding: 2.2rem 2.6rem;
+    position: relative;
+  }
+
+  /* subtle noise texture overlay */
+  .inner-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  /* ── HEADER ── */
+  .seal-area {
+    text-align: center;
+    margin-bottom: 1.8rem;
+  }
+
+  .seal-emblem {
+    display: inline-block;
+    width: 90px; height: 90px;
+    margin-bottom: 0.7rem;
+  }
+
+  .seal-emblem svg {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 0 8px rgba(42,96,96,0.9)) drop-shadow(0 0 20px rgba(30,70,70,0.5));
+    animation: sealShift 6s ease-in-out infinite;
+  }
+
+  @keyframes sealShift {
+    0%,100% { filter: drop-shadow(0 0 7px rgba(42,96,96,0.8))  drop-shadow(0 0 18px rgba(30,70,70,0.4)); }
+    50%      { filter: drop-shadow(0 0 14px rgba(58,128,128,0.9)) drop-shadow(0 0 32px rgba(42,96,96,0.6)); }
+  }
+
+  .org-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-bottom: 0.15rem;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin: 1rem 0;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+  .divider-gem {
+    width: 6px; height: 6px;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  .gem-teal { background: var(--teal-lit); box-shadow: 0 0 6px rgba(58,128,128,0.9); }
+  .gem-gold { background: var(--gold); box-shadow: 0 0 6px rgba(201,168,76,0.9); }
+  .gem-ember { background: var(--ember); box-shadow: 0 0 6px rgba(192,72,32,0.9); }
+
+  .contract-type {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--teal-lit);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .order-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: var(--gold-lit);
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 0 0 28px rgba(201,168,76,0.35), 0 2px 4px rgba(0,0,0,0.9);
+    margin-bottom: 0.3rem;
+  }
+  .order-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--ink-dim);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* ── META ── */
+  .meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.5rem;
+    margin: 1.2rem 0;
+  }
+  .meta-block {
+    background: rgba(42,96,96,0.07);
+    border: 1px solid rgba(42,96,96,0.2);
+    padding: 0.5rem 0.7rem;
+  }
+  .meta-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: var(--teal-lit);
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+  .meta-value {
+    font-size: 0.82rem;
+    color: var(--ink-pale);
+    font-style: italic;
+  }
+
+  /* ── BODY ── */
+  .section-heading {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.55rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold-dim), transparent);
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.78;
+    color: var(--ink-pale);
+    margin-bottom: 0.85rem;
+    text-align: justify;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  em { color: var(--ink); font-style: italic; }
+  strong { color: var(--gold-lit); font-weight: 600; }
+  .danger  { color: var(--ember-lit); font-weight: 600; }
+  .caution { color: var(--warn); font-weight: 600; }
+  .quiet   { color: var(--teal-lit); font-weight: 600; }
+
+  /* ── INTEL BOX ── */
+  .intel-box {
+    background: rgba(42,96,96,0.08);
+    border: 1px solid rgba(42,96,96,0.25);
+    border-left: 3px solid var(--teal-lit);
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+    position: relative;
+  }
+  .intel-box::before {
+    content: '◈ FIELD ASSESSMENT — INTERNAL ONLY';
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.25em;
+    color: var(--teal-lit);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── OPERATIVE PROFILE ── */
+  .profile-box {
+    background: rgba(10,15,25,0.55);
+    border: 1px solid var(--gold-dim);
+    padding: 1.1rem 1.2rem;
+    margin: 1.1rem 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+  .profile-sigil {
+    width: 58px; height: 58px;
+    border: 1px solid rgba(42,96,96,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(42,96,96,0.1);
+  }
+  .profile-sigil svg {
+    width: 38px; height: 38px;
+    fill: var(--teal-lit);
+    filter: drop-shadow(0 0 5px rgba(58,128,128,0.5));
+  }
+  .profile-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--gold-lit);
+    margin-bottom: 0.2rem;
+  }
+  .profile-rank {
+    font-size: 0.78rem;
+    color: var(--teal-lit);
+    font-style: italic;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.45rem;
+  }
+  .profile-details {
+    font-size: 0.9rem;
+    color: var(--ink-pale);
+    line-height: 1.68;
+  }
+  .tag {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.48rem;
+    letter-spacing: 0.16em;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid currentColor;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+    position: relative; top: -1px;
+  }
+  .tag-teal  { color: var(--teal-lit);  border-color: rgba(58,128,128,0.5); background: rgba(42,96,96,0.1); }
+  .tag-gold  { color: var(--gold);      border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.05); }
+  .tag-ember { color: var(--ember-lit); border-color: rgba(192,72,32,0.45); background: rgba(192,72,32,0.07); }
+
+  /* ── TERRAIN TABLE ── */
+  .terrain-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.6rem 0;
+    font-size: 0.88rem;
+  }
+  .terrain-table thead tr { border-bottom: 1px solid var(--gold-dim); }
+  .terrain-table th {
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: left;
+    padding: 0.4rem 0.6rem;
+    background: rgba(0,0,0,0.35);
+  }
+  .terrain-table td {
+    padding: 0.45rem 0.6rem;
+    color: var(--ink-pale);
+    border-bottom: 1px solid rgba(201,168,76,0.07);
+    vertical-align: top;
+  }
+  .terrain-table tr:last-child td { border-bottom: none; }
+  .terrain-table tr:hover td { background: rgba(42,96,96,0.06); }
+  .zone-name { color: var(--gold-lit); font-weight: 600; }
+  .risk-critical { color: var(--ember-lit); }
+  .risk-high     { color: var(--warn); }
+  .risk-moderate { color: var(--silver); }
+
+  /* ── CLAUSES ── */
+  .clauses {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0.4rem 0;
+  }
+  .clause {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 0 0.8rem;
+    align-items: start;
+    background: rgba(0,0,0,0.3);
+    border-left: 2px solid var(--teal-accent);
+    padding: 0.75rem 0.9rem 0.75rem 0;
+    transition: border-color 0.2s;
+  }
+  .clause:hover { border-left-color: var(--teal-lit); }
+  .clause-subtype {
+    border-left-color: var(--gold-dim);
+  }
+  .clause-subtype:hover { border-left-color: var(--gold); }
+  .clause-num {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--teal-lit);
+    padding-left: 0.9rem;
+    padding-top: 0.05rem;
+    letter-spacing: 0.04em;
+  }
+  .clause-subtype .clause-num { color: var(--gold); }
+  .clause-text {
+    font-size: 0.94rem;
+    line-height: 1.7;
+    color: var(--ink-pale);
+  }
+  .clause-text strong { color: var(--gold-lit); }
+  .clause-text .danger  { color: var(--ember-lit); }
+  .clause-text .caution { color: var(--warn); }
+  .clause-text .quiet   { color: var(--teal-lit); }
+
+  .sub-clauses-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin: 1rem 0 0.45rem;
+    padding-left: 0.1rem;
+  }
+
+  /* ── PAYMENT BOX ── */
+  .payment-box {
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-left: 3px solid var(--gold-dim);
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+    position: relative;
+  }
+  .payment-box::before {
+    content: '◈ REMUNERATION SCHEDULE — EYES ONLY';
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.25em;
+    color: var(--gold-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── PENALTY LIST ── */
+  .penalty-list {
+    list-style: none;
+    margin: 0.3rem 0;
+  }
+  .penalty-list li {
+    font-size: 0.92rem;
+    color: var(--ink-pale);
+    line-height: 1.65;
+    padding: 0.28rem 0 0.28rem 1.4rem;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .penalty-list li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--ember);
+    font-size: 0.55rem;
+    top: 0.45rem;
+  }
+
+  /* ── SIGNATURES ── */
+  .sig-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .sig-block {
+    border-top: 1px solid rgba(201,168,76,0.22);
+    padding-top: 0.6rem;
+  }
+  .sig-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.1rem;
+  }
+  .sig-title {
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    font-style: italic;
+  }
+
+  /* ── DENIABILITY WATERMARK ── */
+  .deny-mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-38deg);
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 5.5rem;
+    font-weight: 900;
+    color: rgba(42,96,96,0.04);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.1em;
+    user-select: none;
+  }
+
+  .seal-stamp {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .seal-text {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.52rem;
+    letter-spacing: 0.38em;
+    color: var(--teal-accent);
+    opacity: 0.6;
+  }
+  .order-number {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.28em;
+    color: var(--gold-dim);
+    text-align: right;
+    margin-top: 0.55rem;
+    opacity: 0.6;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #030810; }
+  ::-webkit-scrollbar-thumb { background: var(--teal-accent); border-radius: 3px; }
+
+  @media (max-width: 620px) {
+    .document { padding: 2.2rem 1.6rem; }
+    .inner-border { padding: 1.4rem 1rem; }
+    .meta-row { grid-template-columns: 1fr 1fr; }
+    .profile-box { grid-template-columns: 1fr; }
+    .sig-row { grid-template-columns: 1fr; }
+    .order-title { font-size: 1.15rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div class="document">
+
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+  <div class="classified-band">OFF-THE-BOOKS · NO TABARD · NO RECORD</div>
+
+  <div class="inner-border">
+    <div class="deny-mark">DENIABLE</div>
+
+    <!-- Seal -->
+    <div class="seal-area">
+      <div class="seal-emblem">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="sealG" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#2a6060"/>
+              <stop offset="55%"  stop-color="#183838"/>
+              <stop offset="100%" stop-color="#0a1c1c"/>
+            </radialGradient>
+          </defs>
+          <!-- outer ring, broken/dashed to suggest unofficial nature -->
+          <circle cx="50" cy="50" r="47" fill="none" stroke="#c9a84c" stroke-width="1" stroke-dasharray="6 3" opacity="0.45"/>
+          <!-- scroll shape -->
+          <rect x="20" y="28" width="60" height="44" rx="3" fill="url(#sealG)" stroke="#3a8080" stroke-width="1.2" opacity="0.85"/>
+          <ellipse cx="50" cy="28" rx="30" ry="7" fill="url(#sealG)" stroke="#3a8080" stroke-width="1.2" opacity="0.85"/>
+          <ellipse cx="50" cy="72" rx="30" ry="7" fill="url(#sealG)" stroke="#3a8080" stroke-width="1.2" opacity="0.85"/>
+          <!-- text lines on scroll -->
+          <line x1="30" y1="42" x2="70" y2="42" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+          <line x1="30" y1="50" x2="70" y2="50" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+          <line x1="30" y1="58" x2="58" y2="58" stroke="#c9a84c" stroke-width="0.8" opacity="0.5"/>
+          <!-- Wax mark dot -->
+          <circle cx="50" cy="50" r="8" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="0.8" opacity="0.6"/>
+          <text x="50" y="54" text-anchor="middle" font-size="9" fill="#c9a84c" opacity="0.75" font-family="serif">✦</text>
+        </svg>
+      </div>
+      <div class="org-title">Order of the Blood Knights — Auxiliary Contract Division</div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-gem gem-teal"></div><div class="divider-line"></div></div>
+
+    <div class="contract-type">Auxiliary Field Contract · Classification: Shadow-Ledger</div>
+    <div class="order-title">The Coldthread Recovery Directive</div>
+    <div class="order-subtitle">"What is not written down cannot be demanded at the inquest."</div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-gem gem-gold"></div><div class="divider-line"></div></div>
+
+    <!-- Meta -->
+    <div class="meta-row">
+      <div class="meta-block">
+        <div class="meta-label">Contract Reference</div>
+        <div class="meta-value">BK-AUX-12 · Quel'Thalas</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Authorising Officer</div>
+        <div class="meta-value">Scribe-Adept Thalindra Vel</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Contract Status</div>
+        <div class="meta-value caution">OPEN — SHADOW LEDGER</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Theatre of Operation</div>
+        <div class="meta-value">Eastern Quel'Thalas · Amani Interior</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Operative Classification</div>
+        <div class="meta-value">Auxiliary / Independent Asset</div>
+      </div>
+      <div class="meta-block">
+        <div class="meta-label">Board Clearance</div>
+        <div class="meta-value">Unranked — Deniable</div>
+      </div>
+    </div>
+
+    <!-- Preamble -->
+    <div class="section-heading">Preamble & Context of Engagement</div>
+
+    <p>
+      This contract is issued under the <strong>Shadow-Ledger provision</strong> of the Blood Knight Order's Auxiliary Framework — a category of assignment which carries no official rank designation, no formal Knight-Lord endorsement, and no entry in the Order's primary records. The operative who accepts this contract does so as an <em>unaffiliated recovery specialist</em>, acting in a private capacity under the indirect employ of <strong>House Coldthread of Silvermoon City</strong>.
+    </p>
+    <p>
+      The Coldthread family have been long-standing financial benefactors of the Order, their contributions sustaining the binding of several dozen librams and the upkeep of the Farstrider-adjacent waystation at the southern reaches of Quel'Thalas. In recognition of that relationship — and in the interests of maintaining it — this contract has been placed upon the Auxiliary board at House Coldthread's private request. The <strong>Order does not officially know this mission exists.</strong> The Scribe-Adept's seal below is the only institutional acknowledgement that will ever appear, and that seal will be retracted upon completion.
+    </p>
+
+    <!-- Intel box -->
+    <div class="intel-box">
+      <p style="margin-bottom:0.5rem;">
+        The eastern reaches of Quel'Thalas remain a fractured and politically layered theatre. <strong>Farstrider jurisdiction</strong> covers the majority of traversable woodland between Suncrown Village and the Amani frontier. Any operative bearing Blood Knight insignia — tabard, plate markings, or rank-pin — will be subject to Farstrider challenge and potential detention. The Rangers are not enemies, but they are neither allies in this specific endeavour, and they will ask questions this contract cannot afford to answer.
+      </p>
+      <p style="margin-bottom:0;">
+        The target recovery site lies northeast of the Amani Pass, proximate to the ruins designated <strong>Atal'aman</strong> — an active troll fortification, not an abandoned one. Amani war-priests have been confirmed in the area. The ruin's interior should be treated as occupied hostile territory from the moment of ingress. Whatever the Coldthreads lost out there, it went deep.
+      </p>
+    </div>
+
+    <!-- Operative Standing -->
+    <div class="section-heading">Operative Standing & Identity Protocol</div>
+
+    <div class="intel-box">
+      <p style="margin-bottom:0.5rem;">
+        This contract carries <strong>no named assignee.</strong> It is posted to the Shadow-Ledger board open, and it will be fulfilled by whichever qualified auxiliary pulls it. The operative's name does not appear in this document, in Scribe-Adept Vel's records, or in any correspondence with House Coldthread. For the duration of this contract, the operative <em>does not exist as a Blood Knight asset.</em> They exist as an unaffiliated recovery specialist working private security under House Coldthread retainer — nothing more, nothing less.
+      </p>
+      <p style="margin-bottom:0;">
+        The operative is not issued tabard, rank insignia, or standard-pattern plate for this engagement. They will carry no document identifying them as a member of the Order save this contract itself, which must be destroyed at the first sign of compromise. Should they be taken by Farstrider patrols, <span class="danger">the Order will not move to recover them.</span> That is not a judgment on their capability. It is the structural cost of a contract that depends entirely on the Order's name never appearing in the same sentence as whatever is sitting in that ruin.
+      </p>
+    </div>
+
+    <!-- Contact Profile -->
+    <div class="section-heading">Primary Contact — House Coldthread</div>
+    <div class="profile-box">
+      <div class="profile-sigil">
+        <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+          <!-- merchant scales icon -->
+          <line x1="30" y1="10" x2="30" y2="50" stroke="currentColor" stroke-width="2"/>
+          <line x1="14" y1="20" x2="46" y2="20" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="14" cy="34" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="46" cy="30" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="14" y1="20" x2="14" y2="26" stroke="currentColor" stroke-width="1.2"/>
+          <line x1="46" y1="20" x2="46" y2="22" stroke="currentColor" stroke-width="1.2"/>
+          <line x1="25" y1="48" x2="35" y2="48" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div>
+        <div class="profile-name">Quash Coldthread <span class="tag tag-gold">Patron</span></div>
+        <div class="profile-rank">Merchant Principal, House Coldthread · Suncrown Village Liaison</div>
+        <div class="profile-details">
+          Quash Coldthread is the operational face of House Coldthread's northern trade interest, based out of <strong>Suncrown Village</strong> for the duration of this contract's active window. He is not a combatant. He is not to be treated as one. He is a <em>wealthy, frightened man who lost something he should not have had</em>, in a place he should not have sent it, and he is paying generously to pretend otherwise.
+          <br><br>
+          Initial contact is to be made inside the Suncrown Village inn, not in open streets. Coldthread will identify himself via a <strong>ledger volume bearing the Sunwell Flame imprint</strong> on its spine — a Coldthread house marker. Do not approach him until you see it on the table. Do not acknowledge the Coldthread name in earshot of Farstrider greencloaks. Do not mention the Order. Coldthread will provide precise coordinates for the recovery site verbally, after identity confirmation, and will not commit them to paper.
+          <br><br>
+          Coldthread's <span class="caution">actual motivations are only partially disclosed in this contract.</span> What he has characterised as "misplaced trade goods" almost certainly carries a more complicated provenance. The operative is advised to make their own assessment of the item upon recovery and exercise judgment accordingly.
+        </div>
+      </div>
+    </div>
+
+    <!-- Terrain -->
+    <div class="section-heading">Operational Terrain Assessment</div>
+    <table class="terrain-table">
+      <thead>
+        <tr>
+          <th>Location</th>
+          <th>Assessment</th>
+          <th>Risk Profile</th>
+          <th>Operative Guidance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="zone-name">Suncrown Village</td>
+          <td>Farstrider-controlled hub; active civilian population</td>
+          <td class="risk-moderate">MODERATE</td>
+          <td>Maintain cover; no Blood Knight indicators</td>
+        </tr>
+        <tr>
+          <td class="zone-name">Eastern Quel'Thalas Woodland (Mid)</td>
+          <td>Scourge remnants; Farstrider patrol corridors</td>
+          <td class="risk-high">ELEVATED</td>
+          <td>Move at off-patrol hours; avoid trail markers</td>
+        </tr>
+        <tr>
+          <td class="zone-name">Amani Pass</td>
+          <td>Active troll patrol zone; Amani war-parties confirmed</td>
+          <td class="risk-critical">CRITICAL</td>
+          <td>Stealth or swift force; no extended engagement</td>
+        </tr>
+        <tr>
+          <td class="zone-name">Atal'aman Ruins</td>
+          <td>Occupied troll fortification; war-priests and sentinels</td>
+          <td class="risk-critical">CRITICAL — PRIMARY</td>
+          <td>Treat as hostile interior; recover and withdraw fast</td>
+        </tr>
+        <tr>
+          <td class="zone-name">Northeast River Site</td>
+          <td>Recovery objective location; proximity to troll altar</td>
+          <td class="risk-critical">CRITICAL</td>
+          <td>Coordinates from Coldthread only; no prior scouting</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- CLAUSES -->
+    <div class="section-heading">Contract Clauses — Primary Directives</div>
+
+    <div class="clauses">
+
+      <div class="clause">
+        <div class="clause-num">I.</div>
+        <div class="clause-text">
+          <strong>Clause of Livery — Mandatory Concealment of Affiliation:</strong> For the full duration of this contract, from the moment of departure from Silvermoon City until the operative's return and formal debriefing, <strong>all Blood Knight livery is to be suppressed.</strong> This includes: crimson-and-black plate in standard Knight configuration, the sunwell-flame shoulder insignia, Order-issue librams bearing the Blood Knight crest, and any verbal claim of Knight rank or Order membership. Violation of this clause — whether through oversight, provocation, or deliberate action — will constitute grounds for full contract dissolution without remuneration, and the Order's formal denial of any association with the operative. <span class="danger">There is no version of this contract where a Blood Knight tabard appears in a Farstrider patrol report and this arrangement survives.</span>
+        </div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">II.</div>
+        <div class="clause-text">
+          <strong>Clause of Contact — Coldthread Meeting Protocol:</strong> The operative will proceed to <strong>Suncrown Village</strong> and locate Quash Coldthread at the village inn. No approach is to be made until the Coldthread house ledger — <em>spine-marked with the Sunwell Flame imprint</em> — is visible on the table before him. The operative will sit, order something, and allow Coldthread to initiate. Coldthread will provide the recovery coordinates verbally. These coordinates are not to be written down, transcribed, or relayed to any third party. The operative carries them in memory alone. If Coldthread is not at the inn within two days of the operative's arrival in the village, the operative is to withdraw and send word to Scribe-Adept Vel by courier. <span class="caution">Do not ask the innkeeper about Coldthread by name.</span>
+        </div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">III.</div>
+        <div class="clause-text">
+          <strong>Clause of the Objective — Strategic Asset Recovery:</strong> The recovery target is classified within this contract as a <strong>Strategic Asset</strong>, the precise nature of which has been withheld from this document by design. The operative will receive a physical description of the item from Coldthread directly. The Asset is to be recovered intact, transferred to Coldthread at the Suncrown meeting point upon the operative's return, and <span class="danger">not examined, opened, or tested</span> beyond what is necessary to confirm it is the correct item. The Order makes no claim on the Asset. House Coldthread makes all claims. The operative's role ends at successful delivery.
+        </div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">IV.</div>
+        <div class="clause-text">
+          <strong>Clause of the Pass — Amani Engagement Parameters:</strong> The Amani troll presence at and around Atal'aman is neither incidental nor disorganised. The operative should proceed under the assumption that <strong>the ruins are defended by a functional war-cadre,</strong> including war-priests capable of coordinated shadow and nature-based assault. Engagement is authorised where avoidance is impossible, but prolonged combat is expressly <span class="danger">not sanctioned</span>. Each additional body in the ruins increases the likelihood of a war-party response. The operative should aim to enter, recover, and be beyond the pass perimeter before any Amani response can be organised. <em>A dead troll raises questions. A missing item simply haunts them.</em>
+        </div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">V.</div>
+        <div class="clause-text">
+          <strong>Clause of the Rangers — Farstrider Interaction Protocol:</strong> The Farstriders are the lawful authority across Quel'Thalas and are to be treated with corresponding respect. Should the operative be stopped, questioned, or detained by a Farstrider patrol, she is to cooperate fully with identification requests, present the <em>House Coldthread private security certification</em> provided with this contract package, and answer questions truthfully within the bounds of her cover identity. She is <strong>not</strong> to resist detention, not to invoke the Order's name, and not to use Light-based abilities in a Farstrider's direct line of sight unless her life is in immediate danger. A Farstrider inconvenience is recoverable. A Farstrider incident is not.
+        </div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">VI.</div>
+        <div class="clause-text">
+          <strong>Clause of the Light — Discretionary Power Use:</strong> The operative retains full access to her Blood Knight techniques for the purposes of survival and combat effectiveness. However, conspicuous Holy Light expenditure — particularly <em>large-scale Consecrations, visible sacred flame effects, or divine healing radiance</em> — is to be <span class="caution">minimised in populated areas and avoided entirely in Suncrown Village.</span> A private security contractor does not call down the Light in a Farstrider inn. In the Atal'aman ruins, full combat capacity is at the operative's discretion. Out there, results matter more than subtlety.
+        </div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">VII.</div>
+        <div class="clause-text">
+          <strong>Clause of Deniability — The Order's Position on Operative Capture:</strong> Should the operative be captured by Amani forces, detained by the Farstriders on substantive charges, or otherwise rendered unable to complete or return from this contract, <strong>the Order will not intervene.</strong> No rescue party will be dispatched. No ransom will be paid from Order funds. No diplomatic pressure will be applied. The contract document held by the operative must not survive capture — it is to be destroyed at the first sign of compromise. The Scribe-Adept's seal on this document is the only institutional link between the Order and this operation, and that link is <span class="danger">retroactively severable</span> upon invoking this clause. The operative accepted those terms when she took the contract from the board.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sub-clauses -->
+    <div class="sub-clauses-label">Sub-Clauses — Operational Subtext</div>
+
+    <div class="clauses">
+
+      <div class="clause clause-subtype">
+        <div class="clause-num">α.</div>
+        <div class="clause-text">
+          <strong>The Farstrider Blind Spot:</strong> The Farstriders hold jurisdiction over what they find. They cannot enforce a claim on what they never locate. If the item Coldthread lost is the sort of thing Ranger-Captain eyes would classify as <em>contraband, dangerous artefact, or state-relevant relic</em>, the Rangers would impound it the moment it surfaced under their authority. An independent operative, working quietly and delivering directly to the patron, bypasses that chain of custody entirely. <span class="quiet">The Order understands how jurisdiction works. That is precisely why this contract exists in the category it does.</span>
+        </div>
+      </div>
+
+      <div class="clause clause-subtype">
+        <div class="clause-num">β.</div>
+        <div class="clause-text">
+          <strong>The Plate-Bearer Advantage:</strong> The recovery site is not a place where a scout thrives. Atal'aman is stone, shadow, and consecrated troll bone — it swallows arrows and answers with axes. A recovery team needs someone who can absorb what the ruins return. <strong>The Coldthreads did not post this to Farstriders. They posted it to the Order's board</strong> because they need a plate-wearer who can walk through the kind of resistance a merchant's missing property has apparently accrued. Whoever pulls this contract is that plate-wearer, even without the plate being red and black today.
+        </div>
+      </div>
+
+      <div class="clause clause-subtype">
+        <div class="clause-num">γ.</div>
+        <div class="clause-text">
+          <strong>The Debt Dynamic:</strong> The Coldthread family's financial relationship with the Order creates an informal obligation that cannot appear in official documentation. <span class="quiet">This contract is that obligation made actionable.</span> A generous donor calls in a quiet favour. The Order provides an asset without officially providing anything. Everyone benefits, and no one writes a report. The operative should understand that she is not merely doing a recovery job — she is the mechanism by which two powerful institutions maintain a relationship neither can afford to make public. <em>She is, in this sense, the most important person in a room no one will admit ever existed.</em>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Remuneration -->
+    <div class="payment-box">
+      <p style="margin-bottom:0.5rem;">
+        <strong>Primary Remuneration:</strong> House Coldthread will provide full payment in gold coin upon delivery of the recovered Asset at the Suncrown Village handoff point. The agreed sum was communicated verbally to the operative by Scribe-Adept Vel and is not recorded here.
+      </p>
+      <p style="margin-bottom:0.5rem;">
+        <strong>Order Consideration:</strong> Successful completion of this contract will result in the operative's name being entered into the Shadow-Ledger's <em>Favoured Asset Registry</em> — an informal but meaningful distinction that grants priority access to future Auxiliary contracts and a standing invitation to formal Knight rank assessment, should the operative wish to pursue it.
+      </p>
+      <p style="margin-bottom:0;">
+        <strong>Non-Completion:</strong> No partial payment. No kill-rate compensation for Amani contacts. The contract pays for the Asset delivered, not for the effort expended. <span class="caution">Plan accordingly.</span>
+      </p>
+    </div>
+
+    <!-- Penalties -->
+    <div class="section-heading">Grounds for Contract Dissolution & Liability</div>
+    <p>The following actions will result in immediate contract dissolution, forfeiture of remuneration, and potential review by the Auxiliary Oversight Panel:</p>
+    <ul class="penalty-list">
+      <li>Display or verbal invocation of Blood Knight affiliation within Farstrider jurisdiction while this contract is active.</li>
+      <li>Delivery of the recovered Asset to any party other than Quash Coldthread at the designated Suncrown handoff point.</li>
+      <li>Disclosure of this contract's contents, the Coldthread family's involvement, or the nature of the Asset to any third party — including other Blood Knight personnel.</li>
+      <li>Allowing this contract document to be read, copied, or seized by Farstrider, Amani, or other external parties. The document must be destroyed upon capture risk.</li>
+      <li>Extended hostile engagement in Atal'aman that produces a documented Amani response traceable to Blood Knight-style combat technique.</li>
+      <li>Opening, activating, or testing the Asset beyond confirmation of identity, regardless of curiosity, magical resonance, or apparent danger.</li>
+    </ul>
+
+    <div class="divider" style="margin-top:1.4rem;"><div class="divider-line"></div><div class="divider-gem gem-teal"></div><div class="divider-line"></div></div>
+
+    <p style="text-align:center; font-style:italic; color: var(--ink-dim); font-size: 0.92rem;">
+      <em>"She goes in without a name and comes back without one.<br>What she brings with her is the only thing that will ever matter."</em>
+    </p>
+    <p style="text-align:center; font-size: 0.78rem; color: var(--gold-dim); margin-top: 0.3rem;">
+      — Scribe-Adept Thalindra Vel, Auxiliary Contract Division, Blood Knight Order
+    </p>
+
+    <div class="divider" style="margin-top:1.4rem;"><div class="divider-line"></div><div class="divider-gem gem-ember"></div><div class="divider-line"></div></div>
+
+    <!-- Signatures -->
+    <div class="sig-row">
+      <div class="sig-block">
+        <div class="sig-name">Thalindra Vel</div>
+        <div class="sig-title">Scribe-Adept, Auxiliary Division<br>Blood Knight Order, Quel'Thalas<br><em>[Seal retracted upon contract completion]</em></div>
+      </div>
+      <div class="sig-block">
+        <div class="sig-name">Quash Coldthread</div>
+        <div class="sig-title">Principal, House Coldthread<br><em>[Signatory held in private ledger — not for public record]</em></div>
+      </div>
+    </div>
+
+    <div class="seal-stamp">
+      <div class="seal-text">BLOOD KNIGHT ORDER · AUXILIARY DIVISION · SHADOW-LEDGER · BK-AUX-12 · QUEL'THALAS EASTERN SECTOR</div>
+      <div class="order-number">CONTRACT REF: BK-AUX-12 · COLDTHREAD RECOVERY DIRECTIVE · SHADOW-LEDGER CLEARANCE · NO RECORD</div>
+    </div>
+
+  </div>
+</div>
+</div>
+</body>
+</html>
