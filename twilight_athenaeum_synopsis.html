@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Twilight Athenaeum</title>
+  <style>
+    :root {
+      --bg: #090912;
+      --panel: rgba(20, 18, 33, 0.88);
+      --panel-soft: rgba(34, 29, 54, 0.72);
+      --line: #7b74b8;
+      --line-soft: rgba(123, 116, 184, 0.35);
+      --text: #d8d4ff;
+      --muted: #aaa5d6;
+      --green: #8ebf90;
+      --silver: #d7d7e8;
+      --gold: #d8c56e;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(75, 71, 128, 0.35), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(56, 92, 73, 0.22), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      letter-spacing: 0.02em;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 42px 20px;
+    }
+
+    .card {
+      border: 1px solid var(--line-soft);
+      background: linear-gradient(180deg, var(--panel), rgba(11, 10, 20, 0.94));
+      box-shadow: 0 0 32px rgba(0, 0, 0, 0.45), inset 0 0 28px rgba(123, 116, 184, 0.06);
+      padding: 34px;
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(215, 215, 232, 0.08);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+
+    .sigil {
+      text-align: center;
+      color: var(--gold);
+      font-size: 18px;
+      margin-bottom: 14px;
+      letter-spacing: 0.45em;
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      color: var(--silver);
+      font-size: 34px;
+      font-weight: normal;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      margin: 10px 0 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+      font-style: italic;
+    }
+
+    .rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+      margin: 26px 0;
+    }
+
+    h2 {
+      color: var(--gold);
+      font-size: 18px;
+      font-weight: normal;
+      margin: 26px 0 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    p {
+      color: var(--text);
+      line-height: 1.72;
+      font-size: 16px;
+      margin: 0 0 16px;
+    }
+
+    .quote {
+      margin: 22px 0;
+      padding: 18px 22px;
+      border-left: 3px solid var(--green);
+      background: var(--panel-soft);
+      color: var(--silver);
+      font-style: italic;
+    }
+
+    ul {
+      margin: 12px 0 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      margin: 12px 0;
+      padding-left: 24px;
+      position: relative;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    .pledge {
+      margin-top: 30px;
+      padding: 22px;
+      border: 1px solid rgba(142, 191, 144, 0.28);
+      border-radius: 12px;
+      background: rgba(12, 24, 20, 0.45);
+    }
+
+    .pledge strong {
+      color: var(--green);
+      font-weight: normal;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 28px;
+      letter-spacing: 0.12em;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="sigil">✧ ◐ ✧</div>
+      <h1>The Twilight Athenaeum</h1>
+      <div class="subtitle">An underground kaldorei circle for disciplined arcane study</div>
+
+      <div class="rule"></div>
+
+      <h2>Synopsis</h2>
+      <p>
+        The Twilight Athenaeum is an underground kaldorei fellowship formed for the responsible study,
+        teaching, and preservation of arcane practice. It exists for those who believe the Arcane
+        is not, by nature, a betrayal of the kaldorei people, but a force that must be approached
+        with restraint, humility, memory, and discipline.
+      </p>
+
+      <p>
+        Neither a noble house nor a Highborne court, the Athenaeum survives as a quiet place of instruction
+        for kaldorei arcanists who seek structure without arrogance and knowledge without surrendering
+        themselves to hunger. It does not advertise itself openly, and its lessons are offered through
+        invitation, cautious introduction, or trusted recommendation. Its members may draw from Shen'dralar methods, ancient kaldorei theory,
+        leyline study, illusionwork, warding, and spellcraft, but the purpose is not to recreate the old
+        empire. The purpose is to teach what survived, correct what failed, and keep dangerous knowledge
+        from becoming forbidden ignorance.
+      </p>
+
+      <div class="quote">
+        The Arcane is not innocence. It is not sin. It is a language of Order, and language must be taught
+        before it is screamed.
+      </div>
+
+      <h2>Baseline Intent</h2>
+      <p>
+        The Athenaeum's baseline intent is to teach the Arcane to kaldorei who need more than rumor,
+        fear, or inherited shame. It offers mentorship, practice, theory, and ethical boundaries for those
+        learning to shape spellwork without repeating the ruinous pride of the past.
+      </p>
+
+      <ul>
+        <li>To provide modern kaldorei with a safe foundation in arcane theory and practice.</li>
+        <li>To separate disciplined arcane study from addiction, domination, and Highborne excess.</li>
+        <li>To preserve ancient kaldorei magical knowledge without worshiping the empire that abused it.</li>
+        <li>To teach wards, illusions, leyline awareness, binding theory, and defensive spellcraft.</li>
+        <li>To offer a place for sanctioned misfits, returning arcanists, and the watched to learn without being discarded.</li>
+      </ul>
+
+      <h2>Culture</h2>
+      <p>
+        The Twilight Athenaeum favors quiet study over spectacle. Its meeting places are hidden, borrowed,
+        temporary, or carefully warded: lamp-lit rooms behind ordinary doors, silver-threaded alcoves,
+        half-shadowed cellars, moonlit glass chambers, and secluded corners where old books and warded
+        practice stones can be packed away before questions become accusations. Students are expected to ask questions, submit to correction, and
+        understand that power without restraint is simply another wound waiting to open.
+      </p>
+
+      <p>
+        The group is suitable for arcanists, scholars, scribes, wardens, illusionists, relic-seekers,
+        ritualists, and kaldorei characters who stand near the edge of traditional society but still wish
+        to serve it from places where official sanction cannot always reach. Demon hunters, dark rangers, death knights, and other uneasy allies may interact with
+        the Athenaeum as guarded visitors, subjects of study, or partners in difficult work.
+      </p>
+
+      <h2>In Character</h2>
+      <p>
+        The Twilight Athenaeum presents itself quietly because it must. No criers announce its lessons,
+        no banners demand loyalty, and no one is asked to kneel before a house name. Its existence is
+        spoken of in careful phrases, unfinished references, and names passed only after trust has been
+        proven. Those who find it are usually sent by word of mouth, by a cautious mentor, by a sympathetic
+        Shen'dralar instructor, or by the simple fact that they asked the wrong question in the right place.
+      </p>
+
+      <p>
+        To outsiders, the Athenaeum is little more than rumor: a reading circle, a private tutor's habit,
+        a few strange kaldorei seen leaving the same place after moonrise. To its members, it is a gathering
+        of arcanists, scribes, warders, and difficult scholars who meet to discuss spellcraft under watchful restraint. To its students, it is a room
+        where fear is acknowledged but not obeyed. The Arcane is taught as a discipline of Order: measured,
+        recorded, questioned, corrected, and never mistaken for purity.
+      </p>
+
+      <div class="quote">
+        You will not be praised for power here. You will be watched for control. You will not be shamed
+        for curiosity here. You will be judged by what you do after the answer opens its eye.
+      </div>
+
+      <p>
+        A new student is expected to arrive with humility, patience, discretion, and a willingness to be corrected.
+        Prior training is useful, but not required. Pride is expected to be set aside at the threshold.
+        The Athenaeum does not ask its pupils to forget the Sundering, the Highborne, or the ruin that
+        followed reckless hunger. It asks them to remember clearly enough that ignorance does not become
+        the next disaster.
+      </p>
+
+      <ul>
+        <li>Lessons may involve warding practice, illusion discipline, leyline theory, ritual safety, and written spell analysis.</li>
+        <li>Members are expected to document their work and submit dangerous findings for review.</li>
+        <li>Reckless spellcasting, domination, magical coercion, and addiction-feeding practices are grounds for removal.</li>
+        <li>Visitors may be tolerated, but trust is earned slowly, never assumed, and never carried outside without permission.</li>
+      </ul>
+
+      <h2>What It Is Not</h2>
+      <ul>
+        <li>It is not a claim to be the Shen'dralar or a replacement for them.</li>
+        <li>It is not a Highborne supremacy circle.</li>
+        <li>It is not a cult, secret empire, or forbidden coven, though secrecy is used to protect its students and prevent panic.</li>
+        <li>It is not reckless permission to practice dangerous magic without consequence.</li>
+      </ul>
+
+      <div class="pledge">
+        <p>
+          <strong>Working creed:</strong> The past is not absolution. Fear is not wisdom. The Arcane must be
+          taught with open eyes, steady hands, and memory enough to know why the first lessons were lost.
+        </p>
+      </div>
+
+      <div class="footer">Order beneath twilight • Knowledge without kneeling • Memory without chains</div>
+    </section>
+  </main>
+</body>
+</html>
